@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'emergency.dart';
 import 'addTask.dart';
+import 'home.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,9 +38,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // Put main page widget here
   List<Widget> _widgetList = [
     // Homepage
-    Center(
-      child: Text('You have pressed the button times.'),
-    ),
+    Home(),
     // Event
     Center(
       child: Text('You have ped the button times.'),
