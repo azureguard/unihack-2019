@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'emergency.dart';
+import 'addEmergencyTask.dart';
 import 'addTask.dart';
 import 'contact_route.dart';
 import 'singleton.dart';
@@ -73,6 +74,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }));
   }
 
+  void _navigateToAddEmergencyTask(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return AddEmergencyTask();
+    }));
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       // Optional drawer
@@ -118,7 +126,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.add_box,
                             size: 50,
                           ),
-                          // TODO: connect this with add normal task page
                           onPressed: () => _navigateToAddNormalTask(context),
                         ),
                         FlatButton.icon(
@@ -128,8 +135,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.error,
                             size: 50,
                           ),
-                          // TODO: connect this with add Emergency task page
-                          onPressed: () => print("Emergency"),
+                          onPressed: () => _navigateToAddEmergencyTask(context),
                         ),
                       ],
                     ),
@@ -138,8 +144,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           }
 
           setState(() {
-            _currentIndex = index;
-            _currentBody = _widgetList[index];
+            if (index != 2){
+              _currentIndex = index;
+              _currentBody = _widgetList[index];
+            }
           });
         },
         type: BottomNavigationBarType.fixed,

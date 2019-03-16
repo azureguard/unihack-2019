@@ -49,8 +49,8 @@ class _TaskAreaState extends State<TaskArea> {
   void initState() {
     super.initState();
     _panels = [];
-    // createTaskPanel(
-    // Task("Title", "description", DateTime(2019), DateTime(2020)));
+//    createTaskPanel(
+//        Task("Title", "description", DateTime(2019), DateTime(2020)));
   }
 
   createTaskPanel(Task task) {
