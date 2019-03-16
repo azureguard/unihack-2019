@@ -32,8 +32,8 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _count = 0;
   int _currentIndex = 0;
+  // fill in with dummy widget
   Widget _currentBody = Center(
     child: Text('You have pressed the button times.'),
   );
@@ -64,15 +64,35 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      // Optional drawer
+      drawer: Drawer(
+        child: DrawerHeader(
+          child: Text("Hello"),
+        ),
+      ),
+
       appBar: AppBar(
         title: Text('Event Name'),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 4),
+            child: IconButton(
+              icon: Icon(
+                Icons.person
+              ),
+              // TODO: implement the going to my profile page
+              onPressed: () => {},
+            ),
+          )
+        ],
       ),
-      body: _currentBody,
+
+      body: _currentBody, 
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
-            _count = index;
             _currentIndex = index;
             _currentBody = _widgetList[index];
           });
