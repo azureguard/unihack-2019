@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'emergency.dart';
+import 'addTask.dart';
 
 void main() => runApp(MyApp());
 
@@ -55,6 +56,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     )
   ];
 
+  void _navigateToAddNormalTask(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return AddNormalTask();
+    }));
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       // Optional drawer
@@ -101,7 +109,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             size: 50,
                           ),
                           // TODO: connect this with add normal task page
-                          onPressed: () => print("normal"),
+                          onPressed: () => _navigateToAddNormalTask(context),
                         ),
                         FlatButton.icon(
                           padding: EdgeInsets.symmetric(vertical: 25),

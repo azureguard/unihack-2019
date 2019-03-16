@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
-//import 'C:\Users\Carisa\Documents\Unihack\flutter\examples\flutter_gallery\lib\gallery\demo.dart';
 
 class _InputDropdown extends StatelessWidget {
   const _InputDropdown(
@@ -352,8 +351,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),
             color: Colors.blue,
-
           ),
+
         ],
       ),
     );
