@@ -60,39 +60,30 @@ class _ContactState extends State<Contact> {
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
       return Scaffold(
         backgroundColor: Theme.of(context).canvasColor,
-//        body: Container(
-//          child: Column(children: <Widget>[
-//            ProfileImage(iconLocation: widget.iconLocation),
-//            _buildDND(),
-//          ]),
-//        ),
-        body: Stack(
-          children: <Widget>[
-            Scaffold(
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).canvasColor,
-                elevation: 0,
-                iconTheme: IconThemeData(
-                  // TODO: change the color
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileImage(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).canvasColor,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            // TODO: change the color
+            color: Colors.blue,
+          ),
+        ),
+
+        body: ListView(
+
+          children: [
+            // implement of profile data including mobile, email and task
+            ProfileImage(
                   name: widget.name,
                   iconLocation: widget.iconLocation,
-                ),
-                _buildDND(),
-                ProfileDetails(
-                  phoneNum: widget.phoneNum,
-                  email: widget.email,
-                )
-              ],
+            ),
+            _buildDND(),
+            ProfileDetails(
+              phoneNum: widget.phoneNum,
+              email: widget.email,
             ),
           ],
+
         ),
       );
     }));
@@ -128,7 +119,7 @@ class ProfileImage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 60.0, bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
         alignment: Alignment.topCenter,
         // TODO: remove the gesture detector
@@ -248,15 +239,15 @@ class UserTask extends StatefulWidget {
   final bool dndStatus;
 
   @override
-  _userTaskState createState() => _userTaskState();
+  _UserTaskState createState() => _UserTaskState();
 }
 
-class _userTaskState extends State<UserTask> {
+class _UserTaskState extends State<UserTask> {
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 115,
+        height: 300,
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
