@@ -58,6 +58,10 @@ class Schedule extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List schedule = snapshot.data.documents.first['Schedule'];
+                schedule.sort((a, b) =>
+                a.values.first.isAfter(b.values.first)
+                    ? 1
+                    : -1);
                 return ListView.builder(
                   itemBuilder: (context, index) =>
                       ListTile(
