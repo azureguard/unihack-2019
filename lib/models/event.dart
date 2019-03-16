@@ -14,12 +14,12 @@ class Event {
   void addRegular(Profile prof) => participants.add({
         prof.userID: 'regular',
       });
-      
+
   void addSchedule(String activity, DateTime time) =>
       this.schedule[activity] = time;
 
-  Map allMapped() {
-    Map map = {
+  Map<String, dynamic> allMapped() {
+    Map<String, dynamic> map = {
       "Description": description,
       "EndTime": endTime,
       "Location": location,
