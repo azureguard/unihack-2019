@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'emergency.dart';
+import 'addTask.dart';
+import 'home.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,9 +38,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // Put main page widget here
   List<Widget> _widgetList = [
     // Homepage
-    Center(
-      child: Text('You have pressed the button times.'),
-    ),
+    Home(),
     // Event
     Center(
       child: Text('You have ped the button times.'),
@@ -54,6 +54,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       child: Text('You have pd the button times.'),
     )
   ];
+
+  void _navigateToAddNormalTask(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return AddNormalTask();
+    }));
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +108,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             size: 50,
                           ),
                           // TODO: connect this with add normal task page
-                          onPressed: () => print("normal"),
+                          onPressed: () => _navigateToAddNormalTask(context),
                         ),
                         FlatButton.icon(
                           padding: EdgeInsets.symmetric(vertical: 25),
