@@ -1,11 +1,5 @@
-// This example shows a [Scaffold] with an [AppBar], a [BottomAppBar] and a
-// [FloatingActionButton]. The [body] is a [Text] placed in a [Center] in order
-// to center the text within the [Scaffold] and the [FloatingActionButton] is
-// centered and docked within the [BottomAppBar] using
-// [FloatingActionButtonLocation.centerDocked]. The [FloatingActionButton] is
-// connected to a callback that increments a counter.
-
 import 'package:flutter/material.dart';
+import 'emergency.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // TODO: put our app name here
       title: 'Flutter Code Sample for material.Scaffold',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -53,9 +48,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       child: Text('You have ssed the button times.'),
     ),
     // Emergency
-    Center(
-      child: Text('You have pred the button times.'),
-    ),
+    EmergencyWidget(),
     // Contacts
     Center(
       child: Text('You have pd the button times.'),
@@ -77,9 +70,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           Padding(
             padding: EdgeInsets.only(right: 4),
             child: IconButton(
-              icon: Icon(
-                Icons.person
-              ),
+              icon: Icon(Icons.person),
               // TODO: implement the going to my profile page
               onPressed: () => {},
             ),
@@ -87,11 +78,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ],
       ),
 
-      body: _currentBody, 
+      body: _currentBody,
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
+          if (index == 2) {
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FlatButton.icon(
+                          padding: EdgeInsets.symmetric(vertical: 25),
+                          label: Text("Normal Task"),
+                          icon: Icon(
+                            Icons.add_box,
+                            size: 50,
+                          ),
+                          // TODO: connect this with add normal task page
+                          onPressed: () => print("normal"),
+                        ),
+                        FlatButton.icon(
+                          padding: EdgeInsets.symmetric(vertical: 25),
+                          label: Text("Emergency Task"),
+                          icon: Icon(
+                            Icons.error,
+                            size: 50,
+                          ),
+                          // TODO: connect this with add Emergency task page
+                          onPressed: () => print("Emergency"),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          }
+
           setState(() {
             _currentIndex = index;
             _currentBody = _widgetList[index];
