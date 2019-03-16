@@ -282,7 +282,6 @@ class UserTask extends StatefulWidget {
     @required this.dndStatus,
   });
 
-  // TODO: recheck the timeStart and timeEnd type
   final String title;
   final DateTime timeStart;
   final DateTime timeEnd;
@@ -308,13 +307,23 @@ class _UserTaskState extends State<UserTask> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.title,
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
-                  Text(
-                    widget.category,
-                    style: Theme.of(context).textTheme.subhead,
+                  Container(
+                    width: MediaQuery.of(context).size.width / 5,
+                    child: Text(
+                      widget.category,
+                      style: Theme.of(context).textTheme.subhead,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   )
                 ],
               ),
@@ -332,9 +341,6 @@ class _UserTaskState extends State<UserTask> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.body1,
-              ),
-              Container(
-                height: 10.0,
               ),
             ],
           ),
