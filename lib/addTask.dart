@@ -124,27 +124,29 @@ class _AddNormalTaskState extends State<AddNormalTask> {
   List<DropdownMenuItem<String>> nameList = [];
   String selected1 = null;
   String selected2 = null;
+  final titleController = new TextEditingController();
+  final descriptionController = new TextEditingController();
 
   void loadNames() {
     nameList = [];
     nameList.add(
       new DropdownMenuItem(
         child: new Text("Daryl"),
-        value: 'N1',
+        value: 'Daryl',
       ),
     );
 
     nameList.add(
       new DropdownMenuItem(
         child: new Text("Maurice"),
-        value: 'N2',
+        value: 'Maurice',
       ),
     );
 
     nameList.add(
       new DropdownMenuItem(
         child: new Text("Alvin"),
-        value: 'N3',
+        value: 'Alvin',
       ),
     );
   }
@@ -155,22 +157,22 @@ class _AddNormalTaskState extends State<AddNormalTask> {
     categoryList = [];
     categoryList.add(
       new DropdownMenuItem(
-        child: new Text("Date issued"),
-        value: 'N1',
+        child: new Text("Getting food and drinks"),
+        value: 'Getting food and drinks',
       ),
     );
 
     categoryList.add(
       new DropdownMenuItem(
-        child: new Text("Person who issued"),
-        value: 'N2',
+        child: new Text("Setting up"),
+        value: 'Setting up',
       ),
     );
 
     categoryList.add(
       new DropdownMenuItem(
-        child: new Text("Category"),
-        value: 'N3',
+        child: new Text("Industry Point of Contact"),
+        value: 'Industry Point of Contact',
       ),
     );
   }
@@ -211,6 +213,7 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                   borderSide: BorderSide(color: Colors.grey),
                 ),
               ),
+              controller: titleController,
             ),
           ),
 
@@ -296,13 +299,6 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                     value: selected1,
                     elevation: 1,
                     items: categoryList,
-                    //isExpanded: true,
-                    /*items: categoryList.map((String value) {
-                      return new DropdownMenuItem(
-                          child: new Text(value),
-                          value: value,
-                      );
-                    }).toList(),*/
                     hint: new Text('Select Item'),
                     onChanged: (value) {
                       selected1 = value;
@@ -349,6 +345,7 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
+                controller: descriptionController,
               ),
             ),
           ),
@@ -412,7 +409,20 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           ),
 
           RaisedButton(
-            onPressed: () => print("presses"),
+            // When the user presses the button, show an alert dialog with the
+            // text the user has typed into our text field.
+            onPressed: () {
+              var result = taskResult(
+                textInput: titleController.text,
+                fromDate: DateTime(_fromDate.year,_fromDate.month,_fromDate.day,_fromTime.hour,_fromTime.minute),
+                toDate: DateTime(_toDate.year,_toDate.month,_toDate.day,_toTime.hour,_toTime.minute),
+                selected1: selected1,
+                descriptionInput: descriptionController.text,
+                selected2: selected2,
+                isChecked: _isChecked,
+              );
+              //TODO: upload the stuff from data here? or something
+            },
             textColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),
@@ -423,4 +433,21 @@ class _AddNormalTaskState extends State<AddNormalTask> {
       ),
     );
   }
+}
+
+class taskResult {
+  final String textInput, descriptionInput;
+  final DateTime fromDate, toDate;
+  final String selected1, selected2;
+  final bool isChecked;
+
+  const taskResult({
+    this.textInput,
+    this.fromDate,
+    this.toDate,
+    this.selected1,
+    this.descriptionInput,
+    this.selected2,
+    this.isChecked
+  });
 }
