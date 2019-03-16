@@ -6,6 +6,7 @@
 // connected to a callback that increments a counter.
 
 import 'package:flutter/material.dart';
+import 'home.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,9 +42,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // Put main page widget here
   List<Widget> _widgetList = [
     // Homepage
-    Center(
-      child: Text('You have pressed the button times.'),
-    ),
+    Home(),
     // Event
     Center(
       child: Text('You have ped the button times.'),
@@ -77,9 +76,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           Padding(
             padding: EdgeInsets.only(right: 4),
             child: IconButton(
-              icon: Icon(
-                Icons.person
-              ),
+              icon: Icon(Icons.person),
               // TODO: implement the going to my profile page
               onPressed: () => {},
             ),
@@ -87,7 +84,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ],
       ),
 
-      body: _currentBody, 
+      body: _currentBody,
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

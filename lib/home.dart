@@ -6,7 +6,6 @@ class Home extends StatelessWidget {
     return Column(children: <Widget>[
       NotificationArea(),
       TaskArea(),
-      // TimetableArea(),
     ]);
   }
 }
@@ -92,21 +91,5 @@ class _TaskAreaState extends State<TaskArea> {
                 ]))
               ],
             )));
-  }
-}
-
-class TimetableArea extends StatelessWidget {
-  final data = [
-    {"time": "08:00", "name": "event"},
-    {"time": "09:00", "name": "eent"},
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-          leading: Text(data[index]['time']), title: Text(data[index]['name'])),
-      itemCount: data.length,
-    ));
   }
 }
