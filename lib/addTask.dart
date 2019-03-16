@@ -120,30 +120,57 @@ class AddNormalTask extends StatefulWidget {
 }
 
 class _AddNormalTaskState extends State<AddNormalTask> {
-  //final titleController = TextEditingController();
 
-  List<DropdownMenuItem<String>> listDrop = [];
+  List<DropdownMenuItem<String>> nameList = [];
+  String selected1 = null;
+  String selected2 = null;
 
-  void loadData() {
-    listDrop = [];
-    listDrop.add(
+  void loadNames() {
+    nameList = [];
+    nameList.add(
       new DropdownMenuItem(
-        child: new Text("Item No.1"),
-        value: 'Value 1',
+        child: new Text("Daryl"),
+        value: 'N1',
       ),
     );
 
-    listDrop.add(
+    nameList.add(
       new DropdownMenuItem(
-        child: new Text("Item No.2"),
-        value: 'Value 2',
+        child: new Text("Maurice"),
+        value: 'N2',
       ),
     );
 
-    listDrop.add(
+    nameList.add(
       new DropdownMenuItem(
-        child: new Text("Item No.3"),
-        value: 'Value 3',
+        child: new Text("Alvin"),
+        value: 'N3',
+      ),
+    );
+  }
+
+  List<DropdownMenuItem<String>> categoryList = [];
+
+  void loadCategories() {
+    categoryList = [];
+    categoryList.add(
+      new DropdownMenuItem(
+        child: new Text("Date issued"),
+        value: 'N1',
+      ),
+    );
+
+    categoryList.add(
+      new DropdownMenuItem(
+        child: new Text("Person who issued"),
+        value: 'N2',
+      ),
+    );
+
+    categoryList.add(
+      new DropdownMenuItem(
+        child: new Text("Category"),
+        value: 'N3',
       ),
     );
   }
@@ -163,8 +190,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
 
   @override
   Widget build(BuildContext context) {
-    loadData();
-
+    loadNames();
+    loadCategories();
     return Scaffold(
       body: ListView(
         children: [
@@ -191,17 +218,7 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              /*
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Time start: ',
-                  ),
-                ),
-              ),
-              */
+
               Padding(
                 padding: const EdgeInsets.only(
                   left: 15.0,
@@ -255,7 +272,12 @@ class _AddNormalTaskState extends State<AddNormalTask> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    bottom:  15.0,
+                    right:  5.0,
+                    top: 26.0,
+                  ),
                   child: Text(
                     'Category: ',
                   ),
@@ -264,12 +286,30 @@ class _AddNormalTaskState extends State<AddNormalTask> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(
+                    left: 0.0,
+                    bottom:  0.0,
+                    right:  0.0,
+                    top: 12.0,
+                  ),
                   child: new DropdownButton(
-                    value: null,
-                    items: listDrop,
+                    value: selected1,
+                    elevation: 1,
+                    items: categoryList,
+                    //isExpanded: true,
+                    /*items: categoryList.map((String value) {
+                      return new DropdownMenuItem(
+                          child: new Text(value),
+                          value: value,
+                      );
+                    }).toList(),*/
                     hint: new Text('Select Item'),
-                    onChanged: (item) => {print(item)},
+                    onChanged: (value) {
+                      selected1 = value;
+                      setState(() {
+
+                      });
+                    },
                   ),
                 ),
               ),
@@ -288,7 +328,12 @@ class _AddNormalTaskState extends State<AddNormalTask> {
 
           Container(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(
+                left: 15.0,
+                bottom:  0.0,
+                right:  15.0,
+                top: 0.0,
+              ),
               child: TextField(
                 maxLines: 2,
                 style: new TextStyle(
@@ -311,18 +356,34 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           Row(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  bottom:  15.0,
+                  right:  5.0,
+                  top: 15.0,
+                ),
                 child: Text(
                   'Assigned to: ',
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                  left: 0.0,
+                  bottom:  10.0,
+                  right:  0.0,
+                  top: 10.0,
+                ),
                 child: new DropdownButton(
-                  value: null,
-                  items: listDrop,
+                  elevation: 1,
+                  value: selected2,
+                  items: nameList,
                   hint: new Text('Select Item'),
-                  onChanged: (item) => {print(item)},
+                  onChanged: (value) {
+                    selected2 = value;
+                    setState(() {
+
+                    });
+                  },
                 ),
               ),
             ],
@@ -337,7 +398,12 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                     onChanged(value);
                   }),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.only(
+                  left: 0.0,
+                  bottom:  15.0,
+                  right:  0.0,
+                  top: 15.0,
+                ),
                 child: Text(
                   'Do not disturb',
                 ),
