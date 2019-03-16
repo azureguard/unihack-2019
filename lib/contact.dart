@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:meta/meta.dart';
 
-const _DND = true;
-
 class Contact extends StatefulWidget {
   final IconData iconLocation;
   final String name, phoneNum, email;
@@ -75,6 +73,7 @@ class _ContactState extends State<Contact> {
     );
   }
 }
+
 
 class ProfileImage extends StatelessWidget {
   final String name;

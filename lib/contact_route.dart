@@ -13,6 +13,25 @@ class ContactRoute extends StatelessWidget {
     'Carisa',
     'Alvin',
     'Novan',
+    'Michelle',
+  ];
+
+  static const _contactNum = <String>[
+    '01234567890',
+    '01923891301',
+    '12312738912',
+    '12831293821',
+    '28749128421',
+    '92394902384',
+  ];
+
+  static const _email = <String>[
+    'darylwong@hotmail.com',
+    'maurice@yahoo.com',
+    'carisa@gmail.com',
+    'alvinaksdjlkqwe@hotmail.com',
+    'novan@gmail.com',
+    'michelle@yahoo.com',
   ];
 
   Widget build(BuildContext context) {
@@ -22,6 +41,8 @@ class ContactRoute extends StatelessWidget {
       contacts.add(Contact(
         iconLocation: _iconLocation,
         name: _contactName[i],
+        phoneNum: _contactNum[i],
+        email: _email[i],
       ));
     }
 
