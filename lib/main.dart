@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // TODO: put our app name here
       title: 'Flutter Code Sample for material.Scaffold',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -109,7 +110,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.error,
                             size: 50,
                           ),
-                          // TODO: connect this with add normal task page
+                          // TODO: connect this with add Emergency task page
                           onPressed: () => print("Emergency"),
                         ),
                       ],
