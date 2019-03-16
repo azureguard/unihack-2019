@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'emergency.dart';
 import 'addEmergencyTask.dart';
 import 'addTask.dart';
@@ -56,9 +57,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     // Event
     Global(),
     // Add Task (Won't be used)
-    Center(
-      child: Text('You have ssed the button times.'),
-    ),
+    Container(),
     // Emergency
     EmergencyWidget(),
     // Contacts
@@ -91,7 +90,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
 
       appBar: AppBar(
-        title: Text('Event Name'),
+        title: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance.collection("Events").snapshots(),
+            builder: (context, snapshot) {
+              return Text(snapshot.data.documents.first.data["Title"]);
+            }
+        ),
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 4),
