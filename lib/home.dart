@@ -78,7 +78,9 @@ class _TaskAreaState extends State<TaskArea> {
                         RaisedButton(
                           child: Text("View All",
                               style: TextStyle(color: Colors.white)),
-                          onPressed: () => setState((){this._taskManager = true;}),
+                          onPressed: () => setState(() {
+                                this._taskManager = true;
+                              }),
                           color: Theme.of(context).primaryColor,
                         )
                       ]),
@@ -105,12 +107,6 @@ class _TaskListState extends State<TaskList> {
   void initState() {
     super.initState();
     _panels = [];
-    Task newTask = new Task();
-    newTask.title = "Title";
-    newTask.description = "Description";
-    newTask.start = DateTime(2019);
-    newTask.due = DateTime(2020);
-    createTaskPanel(newTask);
   }
 
   createTaskPanel(Task task) {
