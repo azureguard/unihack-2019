@@ -116,13 +116,19 @@ class ProfileImage extends StatelessWidget {
   }
 }
 
-class ProfileDetails extends StatelessWidget {
+class ProfileDetails extends StatefulWidget {
   final String phoneNum, email;
 
   const ProfileDetails({
     this.phoneNum,
     this.email,
   });
+
+  @override
+  _ProfileDetailsState createState() => _ProfileDetailsState();
+}
+
+class _ProfileDetailsState extends State<ProfileDetails> {
 
   // TODO: implement this with the queries from back end later
   final dndStatus = false;
@@ -168,7 +174,7 @@ class ProfileDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Mobile : $phoneNum',
+                  'Mobile : ${widget.phoneNum}',
                   style: TextStyle(
                     fontSize: 24.0,
                   ),
@@ -194,7 +200,7 @@ class ProfileDetails extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width - 80,
                   child: Text(
-                    'Email   : $email',
+                    'Email   : ${widget.email}',
                     style: TextStyle(
                       fontSize: 24.0,
                     ),
