@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'emergency.dart';
 import 'addTask.dart';
+import 'contact_route.dart';
+import 'singleton.dart';
 import 'home.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  void _handleSignIn() async {
+    var user = FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: 'dumyeet1@test.com', password: 'admin123');
+    // user.then((currentUser) => Singleton.userID = currentUser.uid);
+    print("YEET");
+    user.then((currentUser) => print(currentUser.uid));
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    _handleSignIn();
+    Singleton.currentEvent = "UMqMfWIq2xc4vSZhSTXH";
+    
     return MaterialApp(
       // TODO: put our app name here
       title: 'Flutter Code Sample for material.Scaffold',
