@@ -63,9 +63,20 @@ class _ContactState extends State<Contact> {
           highlightColor: Colors.grey[400],
           splashColor: Colors.grey[400],
           child: ListTile(
-            leading: Icon(IconData(59475, fontFamily: 'MaterialIcons')),
+            leading: Icon(
+              IconData(59475, fontFamily: 'MaterialIcons'),
+              color: Colors.blue[900],
+            ),
             title: Text(widget.name),
-            trailing: Icon(Icons.phone),
+            trailing: IconButton(
+              icon: Icon(Icons.phone),
+              color: Colors.blue[900],
+
+              // TODO: implement phone function
+              onPressed: () {
+                print('Tapped phone button on the Contact List');
+              },
+            ),
             onTap: () => _navigateToProfile(context),
           ),
         ),
@@ -73,7 +84,6 @@ class _ContactState extends State<Contact> {
     );
   }
 }
-
 
 class ProfileImage extends StatelessWidget {
   final String name;
