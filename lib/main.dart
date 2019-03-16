@@ -5,6 +5,7 @@ import 'addTask.dart';
 import 'contact_route.dart';
 import 'singleton.dart';
 import 'home.dart';
+import 'global.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     _handleSignIn();
     Singleton.currentEvent = "UMqMfWIq2xc4vSZhSTXH";
-    
+
     return MaterialApp(
       // TODO: put our app name here
       title: 'Flutter Code Sample for material.Scaffold',
@@ -45,18 +46,14 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _currentIndex = 0;
   // fill in with dummy widget
-  Widget _currentBody = Center(
-    child: Text('You have pressed the button times.'),
-  );
+  Widget _currentBody = Home();
 
   // Put main page widget here
   List<Widget> _widgetList = [
     // Homepage
     Home(),
     // Event
-    Center(
-      child: Text('You have ped the button times.'),
-    ),
+    Global(),
     // Add Task (Won't be used)
     Center(
       child: Text('You have ssed the button times.'),
