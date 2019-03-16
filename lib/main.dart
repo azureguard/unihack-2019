@@ -33,28 +33,79 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _count = 0;
+  int _currentIndex = 0;
+  Widget _currentBody = Center(
+    child: Text('You have pressed the button times.'),
+  );
+
+  // Put main page widget here
+  List<Widget> _widgetList = [
+    // Homepage
+    Center(
+      child: Text('You have pressed the button times.'),
+    ),
+    // Event
+    Center(
+      child: Text('You have ped the button times.'),
+    ),
+    // Add Task (Won't be used)
+    Center(
+      child: Text('You have ssed the button times.'),
+    ),
+    // Emergency
+    Center(
+      child: Text('You have pred the button times.'),
+    ),
+    // Contacts
+    Center(
+      child: Text('You have pd the button times.'),
+    )
+  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sample Code'),
+        title: Text('Event Name'),
       ),
-      body: Center(
-        child: Text('You have pressed the button $_count times.'),
+      body: _currentBody,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _count = index;
+            _currentIndex = index;
+            _currentBody = _widgetList[index];
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              title: Text("Home")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.event,
+              ),
+              title: Text("Events")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add_box,
+              ),
+              title: Text("Add Task")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.error,
+              ),
+              title: Text("Emergency")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.people,
+              ),
+              title: Text("Contacts")),
+        ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 50.0,
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-              _count++;
-            }),
-        tooltip: 'Increment Counter',
-        child: Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
