@@ -12,11 +12,21 @@ class Home extends StatelessWidget {
 }
 
 class NotificationArea extends StatelessWidget {
+  //TODO: put in the actual boolean
+  bool taskPresent = !true;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[Text("Notification for Emergency")],
-    );
+    if (taskPresent) {
+      return Container(
+          color: Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text("There are Emergency Tasks")],
+          ));
+    } else {
+      return Container();
+    }
   }
 }
 
@@ -39,8 +49,8 @@ class _TaskAreaState extends State<TaskArea> {
   void initState() {
     super.initState();
     _panels = [];
-    createTaskPanel(
-        Task("Title", "description", DateTime(2019), DateTime(2020)));
+//    createTaskPanel(
+//        Task("Title", "description", DateTime(2019), DateTime(2020)));
   }
 
   createTaskPanel(Task task) {

@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'emergency.dart';
+import 'addEmergencyTask.dart';
 import 'addTask.dart';
+import 'contact_route.dart';
+import 'singleton.dart';
 import 'home.dart';
+import 'global.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  void _handleSignIn() async {
+    var user = FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: 'dumyeet1@test.com', password: 'admin123');
+    // user.then((currentUser) => Singleton.userID = currentUser.uid);
+    print("YEET");
+    user.then((currentUser) => print(currentUser.uid));
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    _handleSignIn();
+    Singleton.currentEvent = "UMqMfWIq2xc4vSZhSTXH";
+
     return MaterialApp(
       // TODO: put our app name here
       title: 'Flutter Code Sample for material.Scaffold',
@@ -31,18 +47,14 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _currentIndex = 0;
   // fill in with dummy widget
-  Widget _currentBody = Center(
-    child: Text('You have pressed the button times.'),
-  );
+  Widget _currentBody = Home();
 
   // Put main page widget here
   List<Widget> _widgetList = [
     // Homepage
     Home(),
     // Event
-    Center(
-      child: Text('You have ped the button times.'),
-    ),
+    Global(),
     // Add Task (Won't be used)
     Center(
       child: Text('You have ssed the button times.'),
@@ -59,6 +71,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Navigator.of(context)
         .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
       return AddNormalTask();
+    }));
+  }
+
+  void _navigateToAddEmergencyTask(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return AddEmergencyTask();
     }));
   }
 
@@ -107,7 +126,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.add_box,
                             size: 50,
                           ),
-                          // TODO: connect this with add normal task page
                           onPressed: () => _navigateToAddNormalTask(context),
                         ),
                         FlatButton.icon(
@@ -117,8 +135,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.error,
                             size: 50,
                           ),
-                          // TODO: connect this with add Emergency task page
-                          onPressed: () => print("Emergency"),
+                          onPressed: () => _navigateToAddEmergencyTask(context),
                         ),
                       ],
                     ),
@@ -127,8 +144,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           }
 
           setState(() {
-            _currentIndex = index;
-            _currentBody = _widgetList[index];
+            if (index != 2){
+              _currentIndex = index;
+              _currentBody = _widgetList[index];
+            }
           });
         },
         type: BottomNavigationBarType.fixed,
