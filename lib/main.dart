@@ -1,11 +1,5 @@
-// This example shows a [Scaffold] with an [AppBar], a [BottomAppBar] and a
-// [FloatingActionButton]. The [body] is a [Text] placed in a [Center] in order
-// to center the text within the [Scaffold] and the [FloatingActionButton] is
-// centered and docked within the [BottomAppBar] using
-// [FloatingActionButtonLocation.centerDocked]. The [FloatingActionButton] is
-// connected to a callback that increments a counter.
-
 import 'package:flutter/material.dart';
+import 'emergency.dart';
 
 void main() => runApp(MyApp());
 
@@ -53,9 +47,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       child: Text('You have ssed the button times.'),
     ),
     // Emergency
-    Center(
-      child: Text('You have pred the button times.'),
-    ),
+    EmergencyWidget(),
     // Contacts
     Center(
       child: Text('You have pd the button times.'),
