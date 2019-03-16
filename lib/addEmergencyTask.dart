@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'dart:async';
 import 'models/task.dart';
 import 'queries.dart';
+import 'main.dart';
 //import 'package:intl/intl.dart';
 
 class AddEmergencyTask extends StatefulWidget {
@@ -27,9 +28,23 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
     });
   }
 
+  void _navigateToMain(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return MyStatefulWidget();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.blue,
+        ),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -134,7 +149,8 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
             ],
           ),
           RaisedButton(
-            onPressed: () => DoQuery.createNewTask(Task(
+            onPressed: () {
+              DoQuery.createNewTask(Task(
                   title: emergencyController.text,
                   numOfPeople: int.tryParse(numOfPeopleController.text),
                   description: descriptionController.text,
@@ -143,7 +159,9 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
                   start: DateTime.now(),
                   category: "Emergency",
                   isEmergency: true,
-                )),
+                ));
+              _navigateToMain(context);
+            },
             textColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'queries.dart';
 import 'models/task.dart';
+import 'main.dart';
 
 class _InputDropdown extends StatelessWidget {
   const _InputDropdown(
@@ -191,11 +192,25 @@ class _AddNormalTaskState extends State<AddNormalTask> {
     });
   }
 
+  void _navigateToMain(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+      return MyStatefulWidget();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     loadNames();
     loadCategories();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.blue,
+        ),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -407,7 +422,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           RaisedButton(
             // When the user presses the button, show an alert dialog with the
             // text the user has typed into our text field.
-            onPressed: () => DoQuery.createNewTask(Task(
+            onPressed: () {
+              DoQuery.createNewTask(Task(
                   title: titleController.text,
                   start: DateTime(_fromDate.year, _fromDate.month,
                       _fromDate.day, _fromTime.hour, _fromTime.minute),
@@ -419,7 +435,9 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                   description: descriptionController.text,
                   doNotDisturb: _isChecked,
                   isEmergency: false,
-                )),
+                ));
+              _navigateToMain(context);
+            },
             textColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),
