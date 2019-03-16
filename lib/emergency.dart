@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'queries.dart';
+import 'models/task.dart';
+import 'singleton.dart';
 
 // The Emergency Task Card
 class EmergencyTaskCard extends StatefulWidget {
@@ -72,60 +76,29 @@ class EmergencyWidget extends StatefulWidget {
 
 class _EmergencyWidgetState extends State<EmergencyWidget> {
   Widget build(BuildContext context) {
-    const details = [
-      {
-        "title": "hello",
-        "numberOfPeople": 5,
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "numberOfPeople": 5,
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "numberOfPeople": 5,
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "numberOfPeople": 5,
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "numberOfPeople": 5,
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      }
-    ];
-
-    final cards = <EmergencyTaskCard>[];
-
-    for (var i = 0; i < details.length; i++) {
-      cards.add(EmergencyTaskCard(
-        title: details[i]["title"],
-        numberOfPeople: details[i]["numberOfPeople"],
-        description: details[i]["description"],
-        dndStatus: details[i]["dndStatus"],
-      ));
-    }
-
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      child: _buildEmergencyCard(cards),
-    );
-  }
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      child: StreamBuilder<QuerySnapshot>(
+          stream: DoQuery.fetchAllCurrentEmergencyTask(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              QuerySnapshot tasks = snapshot.data;
 
-  Widget _buildEmergencyCard(List<EmergencyTaskCard> cards) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => cards[index],
-      itemCount: cards.length,
+              return ListView.builder(
+                itemCount: tasks.documents.length,
+                itemBuilder: (context, index) {
+                  Map task = tasks.documents[index].data;
+                  return EmergencyTaskCard(
+                      title: task['Title'],
+                      description: task['Description'],
+                      numberOfPeople: task['NumOfPeople'],
+                      dndStatus: task['DoNotDisturb']);
+                },
+              );
+            } else {
+              return Text("No data");
+            }
+          }),
     );
   }
 }
