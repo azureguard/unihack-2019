@@ -26,34 +26,6 @@ class Contact extends StatefulWidget {
 
 //State is information of the application that can change over time or when some actions are taken.
 class _ContactState extends State<Contact> {
-  Widget _buildDND() {
-    if (_DND) {
-      return Container(
-        height: 24.0,
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 0.5, color: Colors.grey[900]),
-            bottom: BorderSide(width: 0.5, color: Colors.grey[900]),
-          ),
-          color: Colors.yellowAccent[400],
-        ),
-        child: Center(
-          child: Text(
-            'Do Not Disturb',
-          ),
-        ),
-      );
-    } else {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(width: 0.5, color: Colors.grey[900]),
-          ),
-        ),
-      );
-    }
-  }
-
   // Navigates to the Profile page
   void _navigateToProfile(BuildContext context) {
     Navigator.of(context)
@@ -68,22 +40,18 @@ class _ContactState extends State<Contact> {
             color: Colors.blue,
           ),
         ),
-
         body: ListView(
-
           children: [
             // implement of profile data including mobile, email and task
             ProfileImage(
-                  name: widget.name,
-                  iconLocation: widget.iconLocation,
+              name: widget.name,
+              iconLocation: widget.iconLocation,
             ),
-            _buildDND(),
             ProfileDetails(
               phoneNum: widget.phoneNum,
               email: widget.email,
             ),
           ],
-
         ),
       );
     }));
@@ -121,14 +89,13 @@ class ProfileImage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
+        color: Theme.of(context).canvasColor,
         alignment: Alignment.topCenter,
-        // TODO: remove the gesture detector
-//        GestureDetector(
-//          onTap: () => print('skkdashkd'),
         child: Column(children: [
           Icon(
             iconLocation,
             size: 120.0,
+            color: Colors.blue,
           ),
           Text(
             name,
@@ -148,12 +115,44 @@ class ProfileDetails extends StatelessWidget {
     this.email,
   });
 
+  // TODO: implement this with the queries from back end later
+  final dndStatus = false;
+
+  Widget _buildDND() {
+    if (dndStatus) {
+      return Container(
+        height: 24.0,
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 0.5, color: Colors.grey[900]),
+            bottom: BorderSide(width: 0.5, color: Colors.grey[900]),
+          ),
+          color: Colors.yellowAccent[400],
+        ),
+        child: Center(
+          child: Text(
+            'Do Not Disturb',
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 0.5, color: Colors.grey[900]),
+          ),
+        ),
+      );
+    }
+  }
+
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 6.0, bottom: 12.0, left: 12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          _buildDND(),
           Padding(
             padding: const EdgeInsets.all(6.0),
             child: Row(
@@ -166,7 +165,10 @@ class ProfileDetails extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                    icon: Icon(IconData(58705, fontFamily: 'MaterialIcons')),
+                    icon: Icon(
+                      IconData(58705, fontFamily: 'MaterialIcons'),
+                      color: Colors.blue[900],
+                    ),
 
                     //TODO: Implement mobile button
                     onPressed: () {
@@ -180,14 +182,20 @@ class ProfileDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  'Email : $email',
-                  style: TextStyle(
-                    fontSize: 24.0,
+                Container(
+                  width: MediaQuery.of(context).size.width - 80,
+                  child: Text(
+                    'Email   : $email',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
                   ),
                 ),
                 IconButton(
-                    icon: Icon(IconData(58708, fontFamily: 'MaterialIcons')),
+                    icon: Icon(
+                      IconData(58708, fontFamily: 'MaterialIcons'),
+                      color: Colors.blue[900],
+                    ),
 
                     //TODO: Implement email button
                     onPressed: () {
@@ -197,21 +205,27 @@ class ProfileDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6.5, vertical: 12.0),
             child: Text(
-              'Task : ',
+              'Task    : ',
               style: TextStyle(
                 fontSize: 24.0,
               ),
             ),
           ),
-          UserTask(
-            title: 'Buy Milk',
-            timeStart: new DateTime(2017, 9, 7, 17, 30),
-            timeEnd: new DateTime(2017, 9, 7, 20, 30),
-            category: 'Food',
-            description: 'Buy stuff',
-            dndStatus: true,
+          GestureDetector(
+            // TODO: redirect to task view page
+            onTap: null,
+            // TODO: take the data from query
+            child: UserTask(
+              title: 'Buy Milk',
+              timeStart: new DateTime(2017, 9, 7, 17, 30),
+              timeEnd: new DateTime(2017, 9, 7, 20, 30),
+              category: 'Food',
+              description: 'Buy stuff',
+              dndStatus: true,
+            ),
           ),
         ],
       ),
@@ -247,7 +261,7 @@ class _UserTaskState extends State<UserTask> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 300,
+        height: 115,
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
