@@ -51,7 +51,7 @@ class _EmergencyTaskCardState extends State<EmergencyTaskCard> {
                   RaisedButton(
                     // TODO: change the on pressed behaviour
                     onPressed: () => {print("yo")},
-                    child: Text('Submit'),
+                    child: Text('Accept'),
                   )
                 ],
               ),
