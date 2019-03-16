@@ -69,9 +69,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           Padding(
             padding: EdgeInsets.only(right: 4),
             child: IconButton(
-              icon: Icon(
-                Icons.person
-              ),
+              icon: Icon(Icons.person),
               // TODO: implement the going to my profile page
               onPressed: () => {},
             ),
@@ -79,11 +77,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ],
       ),
 
-      body: _currentBody, 
+      body: _currentBody,
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
+          if (index == 2) {
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FlatButton.icon(
+                          padding: EdgeInsets.symmetric(vertical: 25),
+                          label: Text("Normal Task"),
+                          icon: Icon(
+                            Icons.add_box,
+                            size: 50,
+                          ),
+                          // TODO: connect this with add normal task page
+                          onPressed: () => print("normal"),
+                        ),
+                        FlatButton.icon(
+                          padding: EdgeInsets.symmetric(vertical: 25),
+                          label: Text("Emergency Task"),
+                          icon: Icon(
+                            Icons.error,
+                            size: 50,
+                          ),
+                          // TODO: connect this with add normal task page
+                          onPressed: () => print("Emergency"),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          }
+
           setState(() {
             _currentIndex = index;
             _currentBody = _widgetList[index];
