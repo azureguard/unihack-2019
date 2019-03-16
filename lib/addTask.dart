@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'queries.dart';
+import 'models/task.dart';
 
 class _InputDropdown extends StatelessWidget {
   const _InputDropdown(
@@ -120,7 +122,6 @@ class AddNormalTask extends StatefulWidget {
 }
 
 class _AddNormalTaskState extends State<AddNormalTask> {
-
   List<DropdownMenuItem<String>> nameList = [];
   String selected1 = null;
   String selected2 = null;
@@ -221,7 +222,6 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-
               Padding(
                 padding: const EdgeInsets.only(
                   left: 15.0,
@@ -277,8 +277,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 15.0,
-                    bottom:  15.0,
-                    right:  5.0,
+                    bottom: 15.0,
+                    right: 5.0,
                     top: 26.0,
                   ),
                   child: Text(
@@ -291,8 +291,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 0.0,
-                    bottom:  0.0,
-                    right:  0.0,
+                    bottom: 0.0,
+                    right: 0.0,
                     top: 12.0,
                   ),
                   child: new DropdownButton(
@@ -302,9 +302,7 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                     hint: new Text('Select Item'),
                     onChanged: (value) {
                       selected1 = value;
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
@@ -326,8 +324,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 15.0,
-                bottom:  0.0,
-                right:  15.0,
+                bottom: 0.0,
+                right: 15.0,
                 top: 0.0,
               ),
               child: TextField(
@@ -355,8 +353,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
               Padding(
                 padding: const EdgeInsets.only(
                   left: 15.0,
-                  bottom:  15.0,
-                  right:  5.0,
+                  bottom: 15.0,
+                  right: 5.0,
                   top: 15.0,
                 ),
                 child: Text(
@@ -366,8 +364,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
               Padding(
                 padding: const EdgeInsets.only(
                   left: 0.0,
-                  bottom:  10.0,
-                  right:  0.0,
+                  bottom: 10.0,
+                  right: 0.0,
                   top: 10.0,
                 ),
                 child: new DropdownButton(
@@ -377,9 +375,7 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                   hint: new Text('Select Item'),
                   onChanged: (value) {
                     selected2 = value;
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
                 ),
               ),
@@ -397,8 +393,8 @@ class _AddNormalTaskState extends State<AddNormalTask> {
               Padding(
                 padding: const EdgeInsets.only(
                   left: 0.0,
-                  bottom:  15.0,
-                  right:  0.0,
+                  bottom: 15.0,
+                  right: 0.0,
                   top: 15.0,
                 ),
                 child: Text(
@@ -411,43 +407,26 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           RaisedButton(
             // When the user presses the button, show an alert dialog with the
             // text the user has typed into our text field.
-            onPressed: () {
-              var result = taskResult(
-                textInput: titleController.text,
-                fromDate: DateTime(_fromDate.year,_fromDate.month,_fromDate.day,_fromTime.hour,_fromTime.minute),
-                toDate: DateTime(_toDate.year,_toDate.month,_toDate.day,_toTime.hour,_toTime.minute),
-                selected1: selected1,
-                descriptionInput: descriptionController.text,
-                selected2: selected2,
-                isChecked: _isChecked,
-              );
-              //TODO: upload the stuff from data here? or something
-            },
+            onPressed: () => DoQuery.createNewTask(Task(
+                  title: titleController.text,
+                  start: DateTime(_fromDate.year, _fromDate.month,
+                      _fromDate.day, _fromTime.hour, _fromTime.minute),
+                  due: DateTime(_toDate.year, _toDate.month, _toDate.day,
+                      _toTime.hour, _toTime.minute),
+                  category: selected1,
+                  assignedTo: [selected2],
+                  numOfPeople: 1,
+                  description: descriptionController.text,
+                  doNotDisturb: _isChecked,
+                  isEmergency: false,
+                )),
             textColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),
             color: Colors.blue,
           ),
-
         ],
       ),
     );
   }
-}
-
-class taskResult {
-  final String textInput, descriptionInput;
-  final DateTime fromDate, toDate;
-  final String selected1, selected2;
-  final bool isChecked;
-
-  const taskResult({
-    this.textInput,
-    this.fromDate,
-    this.toDate,
-    this.selected1,
-    this.descriptionInput,
-    this.selected2,
-    this.isChecked
-  });
 }

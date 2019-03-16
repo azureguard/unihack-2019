@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'dart:async';
+import 'models/task.dart';
+import 'queries.dart';
 //import 'package:intl/intl.dart';
 
 class AddEmergencyTask extends StatefulWidget {
@@ -13,80 +15,9 @@ class AddEmergencyTask extends StatefulWidget {
 
 class _AddEmergencyTaskState extends State<AddEmergencyTask> {
   //final titleController = TextEditingController();
-
-  List<DropdownMenuItem<String>> nameList = [];
-  String selected = null;
-
-  void loadNames() {
-    nameList = [];
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Daryl"),
-        value: 'N1',
-      ),
-    );
-
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Maurice"),
-        value: 'N2',
-      ),
-    );
-
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Alvin"),
-        value: 'N3',
-      ),
-    );
-
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Michelle"),
-        value: 'N4',
-      ),
-    );
-
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Novan"),
-        value: 'N5',
-      ),
-    );
-
-    nameList.add(
-      new DropdownMenuItem(
-        child: new Text("Carisa"),
-        value: 'N6',
-      ),
-    );
-  }
-
-  List<DropdownMenuItem<String>> categoryList = [];
-
-  void loadCategories() {
-    categoryList = [];
-    categoryList.add(
-      new DropdownMenuItem(
-        child: new Text("Date issued"),
-        value: 'N1',
-      ),
-    );
-
-    categoryList.add(
-      new DropdownMenuItem(
-        child: new Text("Person who issued"),
-        value: 'N2',
-      ),
-    );
-
-    categoryList.add(
-      new DropdownMenuItem(
-        child: new Text("Category"),
-        value: 'N3',
-      ),
-    );
-  }
+  final emergencyController = new TextEditingController();
+  final numOfPeopleController = new TextEditingController();
+  final descriptionController = new TextEditingController();
 
   bool _isChecked = false;
 
@@ -98,9 +29,6 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
 
   @override
   Widget build(BuildContext context) {
-    loadNames();
-    loadCategories();
-
     return Scaffold(
       body: ListView(
         children: [
@@ -112,6 +40,7 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
               bottom: 15.0,
             ),
             child: TextField(
+              controller: emergencyController,
               textAlign: TextAlign.left,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -138,6 +67,7 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: TextField(
+                    controller: numOfPeopleController,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       fontSize: 18,
@@ -164,6 +94,7 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextField(
+                controller: descriptionController,
                 maxLines: 2,
                 style: new TextStyle(
                   fontSize: 12,
@@ -180,39 +111,6 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
                 ),
               ),
             ),
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                  bottom: 15.0,
-                  right: 5.0,
-                  top: 15.0,
-                ),
-                child: Text(
-                  'Assigned to: ',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 0.0,
-                  bottom: 10.0,
-                  right: 0.0,
-                  top: 10.0,
-                ),
-                child: new DropdownButton(
-                  value: selected,
-                  elevation: 1,
-                  items: nameList,
-                  hint: new Text('Select Item'),
-                  onChanged: (value) {
-                    selected = value;
-                    setState(() {});
-                  },
-                ),
-              ),
-            ],
           ),
           Row(
             children: <Widget>[
@@ -236,7 +134,16 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
             ],
           ),
           RaisedButton(
-            onPressed: () => print("presses"),
+            onPressed: () => DoQuery.createNewTask(Task(
+                  title: emergencyController.text,
+                  numOfPeople: int.tryParse(numOfPeopleController.text),
+                  description: descriptionController.text,
+                  doNotDisturb: _isChecked,
+                  assignedTo: [],
+                  start: DateTime.now(),
+                  category: "Emergency",
+                  isEmergency: true,
+                )),
             textColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Text("Submit"),

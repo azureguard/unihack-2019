@@ -105,8 +105,12 @@ class _TaskListState extends State<TaskList> {
   void initState() {
     super.initState();
     _panels = [];
-    //  createTaskPanel(
-    //      Task("Title", "description", DateTime(2019), DateTime(2020)));
+    Task newTask = new Task();
+    newTask.title = "Title";
+    newTask.description = "Description";
+    newTask.start = DateTime(2019);
+    newTask.due = DateTime(2020);
+    createTaskPanel(newTask);
   }
 
   createTaskPanel(Task task) {

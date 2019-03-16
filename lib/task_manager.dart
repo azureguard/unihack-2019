@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'queries.dart';
 
 // The Emergency Task Card
 class TaskCard extends StatefulWidget {
@@ -18,7 +20,7 @@ class TaskCard extends StatefulWidget {
   final DateTime timeStart;
   final DateTime timeEnd;
   final String category;
-  final List<String> assignedTo;
+  final List<dynamic> assignedTo;
   final String description;
   final bool dndStatus;
 
@@ -43,13 +45,23 @@ class _TaskCardState extends State<TaskCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.title,
+                  Container(
+                    width: MediaQuery.of(context).size.width/2,
+                    child: Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
-                  Text(
-                    widget.category,
-                    style: Theme.of(context).textTheme.subhead,
+                  Container(
+                    width: MediaQuery.of(context).size.width/5,
+                    child: Text(
+                      widget.category,
+                      style: Theme.of(context).textTheme.subhead,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   )
                 ],
               ),
@@ -88,78 +100,102 @@ class TaskManagerWidget extends StatefulWidget {
 
 class _TaskManagerWidgetState extends State<TaskManagerWidget> {
   Widget build(BuildContext context) {
-    var details = [
-      {
-        "title": "hello",
-        "timeStart": new DateTime(2017, 9, 7, 17, 30),
-        "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-        "category": "food",
-        "assignedTo": <String>["me", "you", "op"],
-        "description": "Taking out some trash to people out theere yeayy okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa dsadhjsah djklsahl sdlksdsahkdlsd",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "timeStart": new DateTime(2017, 9, 7, 17, 30),
-        "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-        "category": "food",
-        "assignedTo": <String>["me", "you", "op"],
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "timeStart": new DateTime(2017, 9, 7, 17, 30),
-        "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-        "category": "food",
-        "assignedTo": <String>["me", "you", "op"],
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "timeStart": new DateTime(2017, 9, 7, 17, 30),
-        "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-        "category": "food",
-        "assignedTo": <String>["me", "you", "op"],
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-      {
-        "title": "hello",
-        "timeStart": new DateTime(2017, 9, 7, 17, 30),
-        "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-        "category": "food",
-        "assignedTo": <String>["me", "you", "op"],
-        "description": "Taking out some trash to people out theere yeayy okoko",
-        "dndStatus": true,
-      },
-    ];
+    // var details = [
+    //   {
+    //     "title": "hello",
+    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
+    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
+    //     "category": "food",
+    //     "assignedTo": <String>["me", "you", "op"],
+    //     "description": "Taking out some trash to people out theere yeayy okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa dsadhjsah djklsahl sdlksdsahkdlsd",
+    //     "dndStatus": true,
+    //   },
+    //   {
+    //     "title": "hello",
+    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
+    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
+    //     "category": "food",
+    //     "assignedTo": <String>["me", "you", "op"],
+    //     "description": "Taking out some trash to people out theere yeayy okoko",
+    //     "dndStatus": true,
+    //   },
+    //   {
+    //     "title": "hello",
+    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
+    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
+    //     "category": "food",
+    //     "assignedTo": <String>["me", "you", "op"],
+    //     "description": "Taking out some trash to people out theere yeayy okoko",
+    //     "dndStatus": true,
+    //   },
+    //   {
+    //     "title": "hello",
+    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
+    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
+    //     "category": "food",
+    //     "assignedTo": <String>["me", "you", "op"],
+    //     "description": "Taking out some trash to people out theere yeayy okoko",
+    //     "dndStatus": true,
+    //   },
+    //   {
+    //     "title": "hello",
+    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
+    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
+    //     "category": "food",
+    //     "assignedTo": <String>["me", "you", "op"],
+    //     "description": "Taking out some trash to people out theere yeayy okoko",
+    //     "dndStatus": true,
+    //   },
+    // ];
 
-    final cards = <TaskCard>[];
+    // final cards = <TaskCard>[];
 
-    for (var i = 0; i < details.length; i++) {
-      cards.add(TaskCard(
-        title: details[i]["title"],
-        timeStart: details[i]["timeStart"],
-        timeEnd: details[i]["timeEnd"],
-        category: details[i]["category"],
-        assignedTo: details[i]["assignedTo"],
-        description: details[i]["description"],
-        dndStatus: details[i]["dndStatus"],
-      ));
-    }
+    // for (var i = 0; i < details.length; i++) {
+    //   cards.add(TaskCard(
+    //     title: details[i]["title"],
+    //     timeStart: details[i]["timeStart"],
+    //     timeEnd: details[i]["timeEnd"],
+    //     category: details[i]["category"],
+    //     assignedTo: details[i]["assignedTo"],
+    //     description: details[i]["description"],
+    //     dndStatus: details[i]["dndStatus"],
+    //   ));
+    // }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      child: _buildTaskCard(cards),
+      child: _buildTaskCard(),
     );
   }
 
-  Widget _buildTaskCard(List<TaskCard> cards) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => cards[index],
-      itemCount: cards.length,
+  Widget _buildTaskCard() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      child: StreamBuilder<QuerySnapshot>(
+          stream: DoQuery.fetchAllCurrentTask(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              QuerySnapshot tasks = snapshot.data;
+
+              return ListView.builder(
+                itemCount: tasks.documents.length,
+                itemBuilder: (context, index) {
+                  Map task = tasks.documents[index].data;
+                  return TaskCard(
+                    title: task['Title'],
+                    description: task['Description'],
+                    dndStatus: task['DoNotDisturb'],
+                    timeEnd: task['Due'],
+                    timeStart: task['Start'],
+                    category: task['Category'],
+                    assignedTo: task['AssignedTo'],
+                  );
+                },
+              );
+            } else {
+              return Text("No data");
+            }
+          }),
     );
   }
 }
