@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/task.dart';
+import 'task_manager.dart';
 import 'queries.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      NotificationArea(),
-      TaskArea(),
-    ]);
+    return TaskArea();
   }
 }
 
@@ -53,6 +51,7 @@ class TaskPanel {
 }
 
 class _TaskAreaState extends State<TaskArea> {
+  bool _taskManager = false;
   @override
   Widget build(BuildContext context) {
     // FutureBuilder test = FutureBuilder(builder: (context, snapshot) {
@@ -62,27 +61,36 @@ class _TaskAreaState extends State<TaskArea> {
     //           ),
     //       body: Text("test2"));
     // });
-
-    return Expanded(
-        child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                Row(children: <Widget>[
-                  Text("Upcoming Tasks",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                  Spacer(),
-                  RaisedButton(
-                    child:
-                        Text("View All", style: TextStyle(color: Colors.white)),
-                    onPressed: () => null,
-                    color: Theme.of(context).primaryColor,
-                  )
-                ]),
-                TaskList(),
-              ],
-            )));
+    if (_taskManager == false) {
+      return Column(
+        children: <Widget>[
+          NotificationArea(),
+          Expanded(
+              child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(children: <Widget>[
+                        Text("Upcoming Tasks",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold)),
+                        Spacer(),
+                        RaisedButton(
+                          child: Text("View All",
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () => setState((){this._taskManager = true;}),
+                          color: Theme.of(context).primaryColor,
+                        )
+                      ]),
+                      TaskList(),
+                    ],
+                  ))),
+        ],
+      );
+    } else {
+      this._taskManager = false;
+      return TaskManagerWidget();
+    }
   }
 }
 

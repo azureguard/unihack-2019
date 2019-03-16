@@ -94,8 +94,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             stream: Firestore.instance.collection("Events").snapshots(),
             builder: (context, snapshot) {
               return Text(snapshot.data.documents.first.data["Title"]);
-            }
-        ),
+            }),
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 4),
@@ -148,7 +147,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           }
 
           setState(() {
-            if (index != 2){
+            if (index == 0) {
+              _currentIndex = index;
+              _currentBody = Home();
+            } else if (index != 2) {
               _currentIndex = index;
               _currentBody = _widgetList[index];
             }
