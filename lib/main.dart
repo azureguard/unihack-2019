@@ -147,8 +147,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           }
 
           setState(() {
-            _currentIndex = index;
-            _currentBody = _widgetList[index];
+            if (index != 2){
+              _currentIndex = index;
+              _currentBody = _widgetList[index];
+            }
           });
         },
         type: BottomNavigationBarType.fixed,
