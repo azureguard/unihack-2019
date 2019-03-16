@@ -14,7 +14,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   void _handleSignIn() async {
     var user = FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: 'dumyeet1@test.com', password: 'admin123');
+        email: "dumyeet1@test.com", password: "admin123");
     // user.then((currentUser) => Singleton.userID = currentUser.uid);
     print("YEET");
     user.then((currentUser) => print(currentUser.uid));
@@ -61,9 +61,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     // Emergency
     EmergencyWidget(),
     // Contacts
-    Center(
-      child: Text('You have pd the button times.'),
-    )
+    ContactRoute(),
   ];
 
   void _navigateToAddNormalTask(BuildContext context) {

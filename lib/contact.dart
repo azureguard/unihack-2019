@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'queries.dart';
 
 class Contact extends StatefulWidget {
   final IconData iconLocation;
-  final String name, phoneNum, email;
+  final String name, phoneNum, email, uid;
 
   const Contact(
       {Key key,
       @required this.name,
       @required this.iconLocation,
       @required this.phoneNum,
-      @required this.email})
+      @required this.email,
+      @required this.uid})
       : assert(name != null),
         assert(iconLocation != null),
         assert(phoneNum != null),
         assert(email != null),
+        // assert(uid != null),
         super(key: key);
 
   @override
@@ -48,6 +51,7 @@ class _ContactState extends State<Contact> {
             ProfileDetails(
               phoneNum: widget.phoneNum,
               email: widget.email,
+              uid: widget.uid,
             ),
           ],
         ),
@@ -117,11 +121,12 @@ class ProfileImage extends StatelessWidget {
 }
 
 class ProfileDetails extends StatefulWidget {
-  final String phoneNum, email;
+  final String phoneNum, email, uid;
 
   const ProfileDetails({
     this.phoneNum,
     this.email,
+    this.uid,
   });
 
   @override
@@ -129,7 +134,6 @@ class ProfileDetails extends StatefulWidget {
 }
 
 class _ProfileDetailsState extends State<ProfileDetails> {
-
   // TODO: implement this with the queries from back end later
   final dndStatus = false;
 
@@ -233,13 +237,32 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             // TODO: redirect to task view page
             onTap: null,
             // TODO: take the data from query
-            child: UserTask(
-              title: 'Buy Milk',
-              timeStart: new DateTime(2017, 9, 7, 17, 30),
-              timeEnd: new DateTime(2017, 9, 7, 20, 30),
-              category: 'Food',
-              description: 'Buy stuff',
-              dndStatus: true,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: DoQuery.fetchTaskFor(widget.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    QuerySnapshot tasks = snapshot.data;
+                    return ListView.builder(
+                        itemCount: tasks.documents.length,
+                        itemBuilder: (context, index) {
+                          Map task = tasks.documents[index].data;
+                          return UserTask(
+                            title: task['Title'],
+                            timeStart: task['Start'],
+                            timeEnd: task['Due'],
+                            category: task['Category'],
+                            description: task['Description'],
+                            dndStatus: task['DoNotDisturb'],
+                          );
+                        });
+                  } else {
+                    return Text("No data");
+                  }
+                },
+              ),
             ),
           ),
         ],
