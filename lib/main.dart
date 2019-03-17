@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
     Singleton.currentEvent = "UMqMfWIq2xc4vSZhSTXH";
 
     return MaterialApp(
-      // TODO: put our app name here
-      title: 'Flutter Code Sample for material.Scaffold',
+      title: 'EventiT',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
