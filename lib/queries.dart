@@ -3,7 +3,6 @@ import 'package:unihack2019/singleton.dart';
 import 'dart:async';
 import 'package:unihack2019/models/event.dart';
 import 'package:unihack2019/models/task.dart';
-import 'package:unihack2019/models/profile.dart';
 
 class DoQuery {
   static final DoQuery _query = new DoQuery._internal();

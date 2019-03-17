@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'queries.dart';
-import 'models/task.dart';
-import 'singleton.dart';
 
 // The Emergency Task Card
 class EmergencyTaskCard extends StatefulWidget {
