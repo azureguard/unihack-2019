@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     Singleton.currentEvent = "UMqMfWIq2xc4vSZhSTXH";
 
     return MaterialApp(
-      title: 'EventiT',
+      title: 'EventIt',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
