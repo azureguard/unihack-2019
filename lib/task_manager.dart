@@ -99,68 +99,6 @@ class TaskManagerWidget extends StatefulWidget {
 
 class _TaskManagerWidgetState extends State<TaskManagerWidget> {
   Widget build(BuildContext context) {
-    // var details = [
-    //   {
-    //     "title": "hello",
-    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
-    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-    //     "category": "food",
-    //     "assignedTo": <String>["me", "you", "op"],
-    //     "description": "Taking out some trash to people out theere yeayy okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa okoko dajhk sd asdhswa hdsakhd sadhksa dsachs dhsaj dksa dsadhjsah djklsahl sdlksdsahkdlsd",
-    //     "dndStatus": true,
-    //   },
-    //   {
-    //     "title": "hello",
-    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
-    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-    //     "category": "food",
-    //     "assignedTo": <String>["me", "you", "op"],
-    //     "description": "Taking out some trash to people out theere yeayy okoko",
-    //     "dndStatus": true,
-    //   },
-    //   {
-    //     "title": "hello",
-    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
-    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-    //     "category": "food",
-    //     "assignedTo": <String>["me", "you", "op"],
-    //     "description": "Taking out some trash to people out theere yeayy okoko",
-    //     "dndStatus": true,
-    //   },
-    //   {
-    //     "title": "hello",
-    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
-    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-    //     "category": "food",
-    //     "assignedTo": <String>["me", "you", "op"],
-    //     "description": "Taking out some trash to people out theere yeayy okoko",
-    //     "dndStatus": true,
-    //   },
-    //   {
-    //     "title": "hello",
-    //     "timeStart": new DateTime(2017, 9, 7, 17, 30),
-    //     "timeEnd": new DateTime(2017, 9, 7, 20, 30),
-    //     "category": "food",
-    //     "assignedTo": <String>["me", "you", "op"],
-    //     "description": "Taking out some trash to people out theere yeayy okoko",
-    //     "dndStatus": true,
-    //   },
-    // ];
-
-    // final cards = <TaskCard>[];
-
-    // for (var i = 0; i < details.length; i++) {
-    //   cards.add(TaskCard(
-    //     title: details[i]["title"],
-    //     timeStart: details[i]["timeStart"],
-    //     timeEnd: details[i]["timeEnd"],
-    //     category: details[i]["category"],
-    //     assignedTo: details[i]["assignedTo"],
-    //     description: details[i]["description"],
-    //     dndStatus: details[i]["dndStatus"],
-    //   ));
-    // }
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       child: _buildTaskCard(),

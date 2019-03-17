@@ -36,8 +36,6 @@ class ContactRoute extends StatelessWidget {
                 itemCount: profiles.documents.length,
                 itemBuilder: (context, index) {
                   Map profile = profiles.documents[index].data;
-                  print(profile['Name']);
-                  print(profile['UserID']);
                   return Contact(
                       iconLocation: _iconLocation,
                       name: profile['Name'],
