@@ -1,16 +1,26 @@
-# unihack2019
+# EventIt
 
-Event Scheduling App
+EventIt is a mobile app that assists event organizers in organizing their events.
+
+# Key Features
+
+EventIt has several interesting features
+1. Task Assignment: excellent way to manage your team and planning tasks for each member of your team
+2. Emergency Task: events can be unpredictable and sometimes unwanted things happen, whether it is food shortage or drunk aunt in christmas party, Emergency Task creation will let task quickly reach your team for them to respond to.
+3. Cross Platform: it runs on both iOS and Android!
+4. And many more!
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+EventIt is built in using the Flutter tech stack. 
 
-A few resources to get you started if this is your first Flutter project:
+The Flutter SDK is required to run the app.
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+Connect your PC to your smartphone of choice or launch an emulator.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Then run:
+
+```
+flutter packages get
+flutter run
+```
