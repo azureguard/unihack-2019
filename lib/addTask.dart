@@ -211,219 +211,223 @@ class _AddNormalTaskState extends State<AddNormalTask> {
           color: Colors.blue,
         ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 25.0,
-              left: 15.0,
-              right: 15.0,
-              bottom: 15.0,
-            ),
-            child: TextField(
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Enter task title',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-              controller: titleController,
-            ),
-          ),
-
-          //create a class for all text so that we don't hardcode (?)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                ),
-                child: _DateTimePicker(
-                  labelText: 'From',
-                  selectedDate: _fromDate,
-                  selectedTime: _fromTime,
-                  selectDate: (DateTime date) {
-                    setState(() {
-                      _fromDate = date;
-                    });
-                  },
-                  selectTime: (TimeOfDay time) {
-                    setState(() {
-                      _fromTime = time;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                ),
-                child: _DateTimePicker(
-                  labelText: 'To',
-                  selectedDate: _toDate,
-                  selectedTime: _toTime,
-                  selectDate: (DateTime date) {
-                    setState(() {
-                      _toDate = date;
-                    });
-                  },
-                  selectTime: (TimeOfDay time) {
-                    setState(() {
-                      _toTime = time;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-
-          Row(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    bottom: 15.0,
-                    right: 5.0,
-                    top: 26.0,
-                  ),
-                  child: Text(
-                    'Category: ',
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 0.0,
-                    bottom: 0.0,
-                    right: 0.0,
-                    top: 12.0,
-                  ),
-                  child: new DropdownButton(
-                    value: selected1,
-                    elevation: 1,
-                    items: categoryList,
-                    hint: new Text('Select Item'),
-                    onChanged: (value) {
-                      selected1 = value;
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                'Description: ',
-              ),
-            ),
-          ),
-
-          Container(
-            child: Padding(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView(
+          children: [
+            Padding(
               padding: const EdgeInsets.only(
+                top: 25.0,
                 left: 15.0,
-                bottom: 0.0,
                 right: 15.0,
-                top: 0.0,
+                bottom: 15.0,
               ),
               child: TextField(
-                maxLines: 2,
-                style: new TextStyle(
-                  fontSize: 12,
-                  height: 2.0,
-                  color: Colors.black,
-                ),
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
-                  border: new OutlineInputBorder(),
-                  hintText: 'Enter task description',
+                  border: InputBorder.none,
+                  hintText: 'Enter task title',
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
-                controller: descriptionController,
+                controller: titleController,
               ),
             ),
-          ),
 
-          Row(
-            children: <Widget>[
-              Padding(
+            //create a class for all text so that we don't hardcode (?)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                  ),
+                  child: _DateTimePicker(
+                    labelText: 'From',
+                    selectedDate: _fromDate,
+                    selectedTime: _fromTime,
+                    selectDate: (DateTime date) {
+                      setState(() {
+                        _fromDate = date;
+                      });
+                    },
+                    selectTime: (TimeOfDay time) {
+                      setState(() {
+                        _fromTime = time;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                  ),
+                  child: _DateTimePicker(
+                    labelText: 'To',
+                    selectedDate: _toDate,
+                    selectedTime: _toTime,
+                    selectDate: (DateTime date) {
+                      setState(() {
+                        _toDate = date;
+                      });
+                    },
+                    selectTime: (TimeOfDay time) {
+                      setState(() {
+                        _toTime = time;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 15.0,
+                      bottom: 15.0,
+                      right: 5.0,
+                      top: 26.0,
+                    ),
+                    child: Text(
+                      'Category: ',
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 0.0,
+                      bottom: 0.0,
+                      right: 0.0,
+                      top: 12.0,
+                    ),
+                    child: new DropdownButton(
+                      value: selected1,
+                      elevation: 1,
+                      items: categoryList,
+                      hint: new Text('Select Item'),
+                      onChanged: (value) {
+                        selected1 = value;
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  'Description: ',
+                ),
+              ),
+            ),
+
+            Container(
+              child: Padding(
                 padding: const EdgeInsets.only(
                   left: 15.0,
-                  bottom: 15.0,
-                  right: 5.0,
-                  top: 15.0,
+                  bottom: 0.0,
+                  right: 15.0,
+                  top: 0.0,
                 ),
-                child: Text(
-                  'Assigned to: ',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 0.0,
-                  bottom: 10.0,
-                  right: 0.0,
-                  top: 10.0,
-                ),
-                child: new DropdownButton(
-                  elevation: 1,
-                  value: selected2,
-                  items: nameList,
-                  hint: new Text('Select Item'),
-                  onChanged: (value) {
-                    selected2 = value;
-                    setState(() {});
-                  },
+                child: TextField(
+                  maxLines: 2,
+                  style: new TextStyle(
+                    fontSize: 12,
+                    height: 2.0,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(),
+                    hintText: 'Enter task description',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                  controller: descriptionController,
                 ),
               ),
-            ],
-          ),
+            ),
 
-          Row(
-            children: <Widget>[
-              //checkbox
-              new Checkbox(
-                  value: _isChecked,
-                  onChanged: (bool value) {
-                    onChanged(value);
-                  }),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 0.0,
-                  bottom: 15.0,
-                  right: 0.0,
-                  top: 15.0,
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    bottom: 15.0,
+                    right: 5.0,
+                    top: 15.0,
+                  ),
+                  child: Text(
+                    'Assigned to: ',
+                  ),
                 ),
-                child: Text(
-                  'Do not disturb',
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0.0,
+                    bottom: 10.0,
+                    right: 0.0,
+                    top: 10.0,
+                  ),
+                  child: new DropdownButton(
+                    elevation: 1,
+                    value: selected2,
+                    items: nameList,
+                    hint: new Text('Select Item'),
+                    onChanged: (value) {
+                      selected2 = value;
+                      setState(() {});
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
-          RaisedButton(
-            // When the user presses the button, show an alert dialog with the
-            // text the user has typed into our text field.
-            onPressed: () {
-              DoQuery.createNewTask(Task(
+            Row(
+              children: <Widget>[
+                //checkbox
+                new Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool value) {
+                      onChanged(value);
+                    }),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0.0,
+                    bottom: 15.0,
+                    right: 0.0,
+                    top: 15.0,
+                  ),
+                  child: Text(
+                    'Do not disturb',
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 16,
+            ),
+            RaisedButton(
+              // When the user presses the button, show an alert dialog with the
+              // text the user has typed into our text field.
+              onPressed: () {
+                DoQuery.createNewTask(Task(
                   title: titleController.text,
                   start: DateTime(_fromDate.year, _fromDate.month,
                       _fromDate.day, _fromTime.hour, _fromTime.minute),
@@ -436,14 +440,15 @@ class _AddNormalTaskState extends State<AddNormalTask> {
                   doNotDisturb: _isChecked,
                   isEmergency: false,
                 ));
-              _navigateToMain(context);
-            },
-            textColor: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            child: Text("Submit"),
-            color: Colors.blue,
-          ),
-        ],
+                _navigateToMain(context);
+              },
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Text("Submit"),
+              color: Colors.blue,
+            ),
+          ],
+        ),
       ),
     );
   }

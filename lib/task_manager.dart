@@ -15,7 +15,6 @@ class TaskCard extends StatefulWidget {
     @required this.dndStatus,
   });
 
-  // TODO: recheck the timeStart and timeEnd type
   final String title;
   final DateTime timeStart;
   final DateTime timeEnd;

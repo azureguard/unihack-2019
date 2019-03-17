@@ -17,19 +17,22 @@ class Global extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(children: <Widget>[
-                        Icon(Icons.location_on),
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.red[600],
+                        ),
                         Container(width: 10),
                         Text(event["Location"],
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .headline)
+                            style: Theme.of(context).textTheme.headline)
                       ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(children: <Widget>[
-                        Icon(Icons.access_time),
+                        Icon(
+                          Icons.access_time,
+                          color: Colors.blue[900],
+                        ),
                         Container(width: 10),
                         Column(children: <Widget>[
                           Text(DateFormat("h.mma dd MMMM")
@@ -39,6 +42,16 @@ class Global extends StatelessWidget {
                         ])
                       ]),
                     ),
+                    Container(
+                      height: 5,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 0.01,
+                      decoration: BoxDecoration(
+                          border: BorderDirectional(
+                              bottom: BorderSide(color: Colors.grey))),
+                    )
                   ]);
                 } else {
                   return Center(child: CircularProgressIndicator());
@@ -58,22 +71,28 @@ class Schedule extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List schedule = snapshot.data.documents.first['Schedule'];
-                schedule.sort((a, b) =>
-                a.values.first.isAfter(b.values.first)
-                    ? 1
-                    : -1);
+                schedule.sort(
+                    (a, b) => a.values.first.isAfter(b.values.first) ? 1 : -1);
                 return ListView.builder(
-                  itemBuilder: (context, index) =>
-                      ListTile(
-                          leading: Text(
-                            DateFormat("h:mm a")
-                                .format(schedule[index].values.first),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .subhead,
-                          ),
-                          title: Text(schedule[index].keys.first)),
+                  itemBuilder: (context, index) => ListTile(
+                        title: Row(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: Text(
+                                DateFormat("h:mm a")
+                                    .format(schedule[index].values.first),
+                                style: Theme.of(context).textTheme.subhead,
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                schedule[index].keys.first,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   itemCount: schedule.length,
                 );
               } else {

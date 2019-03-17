@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:intl/intl.dart';
 import 'queries.dart';
 
 class Contact extends StatefulWidget {
@@ -37,7 +38,6 @@ class _ContactState extends State<Contact> {
           backgroundColor: Theme.of(context).canvasColor,
           elevation: 0,
           iconTheme: IconThemeData(
-            // TODO: change the color
             color: Colors.blue,
           ),
         ),
@@ -76,7 +76,6 @@ class _ContactState extends State<Contact> {
               icon: Icon(Icons.phone),
               color: Colors.blue[900],
 
-              // TODO: implement phone function
               onPressed: () {
                 print('Tapped phone button on the Contact List');
               },
@@ -134,7 +133,6 @@ class ProfileDetails extends StatefulWidget {
 }
 
 class _ProfileDetailsState extends State<ProfileDetails> {
-  // TODO: implement this with the queries from back end later
   final dndStatus = false;
 
   Widget _buildDND() {
@@ -167,13 +165,15 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 6.0, bottom: 12.0, left: 12.0),
+      padding: EdgeInsets.only(top: 6.0, bottom: 12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildDND(),
+          Container(height: 8),
           Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -189,7 +189,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       color: Colors.blue[900],
                     ),
 
-                    //TODO: Implement mobile button
                     onPressed: () {
                       print('Tapped mobile button');
                     }),
@@ -197,17 +196,20 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width - 80,
+                  width: MediaQuery.of(context).size.width / 1.5,
                   child: Text(
                     'Email   : ${widget.email}',
                     style: TextStyle(
                       fontSize: 24.0,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                   ),
                 ),
                 IconButton(
@@ -216,7 +218,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       color: Colors.blue[900],
                     ),
 
-                    //TODO: Implement email button
                     onPressed: () {
                       print('Tapped email button');
                     }),
@@ -225,7 +226,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           ),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 6.5, vertical: 12.0),
+                const EdgeInsets.symmetric(horizontal: 18.5, vertical: 12.0),
             child: Text(
               'Task    : ',
               style: TextStyle(
@@ -234,34 +235,35 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             ),
           ),
           GestureDetector(
-            // TODO: redirect to task view page
             onTap: null,
-            // TODO: take the data from query
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: DoQuery.fetchTaskFor(widget.uid),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    QuerySnapshot tasks = snapshot.data;
-                    return ListView.builder(
-                        itemCount: tasks.documents.length,
-                        itemBuilder: (context, index) {
-                          Map task = tasks.documents[index].data;
-                          return UserTask(
-                            title: task['Title'],
-                            timeStart: task['Start'],
-                            timeEnd: task['Due'],
-                            category: task['Category'],
-                            description: task['Description'],
-                            dndStatus: task['DoNotDisturb'],
-                          );
-                        });
-                  } else {
-                    return Text("No data");
-                  }
-                },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: DoQuery.fetchTaskFor(widget.uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      QuerySnapshot tasks = snapshot.data;
+                      return ListView.builder(
+                          itemCount: tasks.documents.length,
+                          itemBuilder: (context, index) {
+                            Map task = tasks.documents[index].data;
+                            return UserTask(
+                              title: task['Title'],
+                              timeStart: task['Start'],
+                              timeEnd: task['Due'],
+                              category: task['Category'],
+                              description: task['Description'],
+                              dndStatus: task['DoNotDisturb'],
+                            );
+                          });
+                    } else {
+                      return Text("No data");
+                    }
+                  },
+                ),
               ),
             ),
           ),
@@ -297,6 +299,7 @@ class _UserTaskState extends State<UserTask> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 3,
       child: Container(
         height: 115,
         child: Padding(
@@ -308,7 +311,7 @@ class _UserTaskState extends State<UserTask> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width / 1.5,
                     child: Text(
                       widget.title,
                       style: Theme.of(context).textTheme.title,
@@ -317,7 +320,7 @@ class _UserTaskState extends State<UserTask> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 5,
+                    width: MediaQuery.of(context).size.width / 7,
                     child: Text(
                       widget.category,
                       style: Theme.of(context).textTheme.subhead,
@@ -331,7 +334,8 @@ class _UserTaskState extends State<UserTask> {
                 height: 5.0,
               ),
               Text(
-                "${widget.timeStart.hour}:${widget.timeStart.minute}-${widget.timeEnd.hour}:${widget.timeEnd.minute}",
+                "${DateFormat("h:mma").format(widget.timeStart)} - ${DateFormat("h:mma").format(widget.timeEnd)}",
+                // "${widget.timeStart.hour}:${widget.timeStart.minute}-${widget.timeEnd.hour}:${widget.timeEnd.minute}",
               ),
               Container(
                 height: 10.0,

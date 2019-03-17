@@ -45,112 +45,117 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
           color: Colors.blue,
         ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 25.0,
-              left: 15.0,
-              right: 15.0,
-              bottom: 15.0,
-            ),
-            child: TextField(
-              controller: emergencyController,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Enter emergency task title',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 25.0,
+                left: 15.0,
+                right: 15.0,
+                bottom: 15.0,
               ),
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  'Number of people needed for task: ',
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                width: 40,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: TextField(
-                    controller: numOfPeopleController,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '#',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                'Description: ',
-              ),
-            ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
               child: TextField(
-                controller: descriptionController,
-                maxLines: 2,
-                style: new TextStyle(
-                  fontSize: 12,
-                  height: 2.0,
-                  color: Colors.black,
-                ),
+                controller: emergencyController,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
-                  border: new OutlineInputBorder(),
-                  hintText: 'Enter task description',
+                  border: InputBorder.none,
+                  hintText: 'Enter emergency task title',
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
               ),
             ),
-          ),
-          Row(
-            children: <Widget>[
-              //checkbox
-              new Checkbox(
-                  value: _isChecked,
-                  onChanged: (bool value) {
-                    onChanged(value);
-                  }),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 0.0,
-                  bottom: 15.0,
-                  right: 0.0,
-                  top: 15.0,
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    'Number of people needed for task: ',
+                  ),
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                  ),
+                  width: 40,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: TextField(
+                      controller: numOfPeopleController,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '#',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  'Do not disturb',
+                  'Description: ',
                 ),
               ),
-            ],
-          ),
-          RaisedButton(
-            onPressed: () {
-              DoQuery.createNewTask(Task(
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextField(
+                  controller: descriptionController,
+                  maxLines: 2,
+                  style: new TextStyle(
+                    fontSize: 12,
+                    height: 2.0,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(),
+                    hintText: 'Enter task description',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                //checkbox
+                new Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool value) {
+                      onChanged(value);
+                    }),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0.0,
+                    bottom: 15.0,
+                    right: 0.0,
+                    top: 15.0,
+                  ),
+                  child: Text(
+                    'Do not disturb',
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 16,
+            ),
+            RaisedButton(
+              onPressed: () {
+                DoQuery.createNewTask(Task(
                   title: emergencyController.text,
                   numOfPeople: int.tryParse(numOfPeopleController.text),
                   description: descriptionController.text,
@@ -160,14 +165,15 @@ class _AddEmergencyTaskState extends State<AddEmergencyTask> {
                   category: "Emergency",
                   isEmergency: true,
                 ));
-              _navigateToMain(context);
-            },
-            textColor: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            child: Text("Submit"),
-            color: Colors.blue,
-          ),
-        ],
+                _navigateToMain(context);
+              },
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Text("Submit"),
+              color: Colors.blue,
+            ),
+          ],
+        ),
       ),
     );
   }

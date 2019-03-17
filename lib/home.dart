@@ -13,8 +13,6 @@ class Home extends StatelessWidget {
 }
 
 class NotificationArea extends StatelessWidget {
-  //TODO: put in the actual boolean
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -25,10 +23,11 @@ class NotificationArea extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data.documents.length > 0) {
             return Container(
+              height: MediaQuery.of(context).size.height / 20,
                 color: Colors.red,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("There are Emergency Tasks")],
+                  children: [Text("There are Emergency Tasks",style: TextStyle(color: Colors.white),)],
                 ));
           } else {
             return Container();
@@ -67,7 +66,7 @@ class _TaskAreaState extends State<TaskArea> {
           NotificationArea(),
           Expanded(
               child: Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(14.0),
                   child: Column(
                     children: <Widget>[
                       Row(children: <Widget>[
@@ -84,6 +83,9 @@ class _TaskAreaState extends State<TaskArea> {
                           color: Theme.of(context).primaryColor,
                         )
                       ]),
+                      Container(
+                        height: 13,
+                      ),
                       TaskList(),
                     ],
                   ))),
@@ -145,21 +147,24 @@ class _TaskListState extends State<TaskList> {
                           headerBuilder: (context, isExpanded) => Row(
                                 children: <Widget>[
                                   Padding(
-                                      padding: EdgeInsets.only(left: 10),
+                                      padding: EdgeInsets.only(left: 13),
                                       child: Container(
                                         child: Row(children: <Widget>[
-                                          Text(
-                                              DateFormat("h:mma")
-                                                  .format(panel.start),
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text(" "),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width / 4,
+                                            child: Text(
+                                                DateFormat("h:mma")
+                                                    .format(panel.start),
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.indigo[900])),
+                                          ),
                                           Container(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                2,
+                                                2.2,
                                             child: Text(
                                               panel.title,
                                               style: TextStyle(fontSize: 18),
@@ -172,7 +177,7 @@ class _TaskListState extends State<TaskList> {
                               ),
                           isExpanded: panel.isExpanded,
                           body: Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -187,7 +192,7 @@ class _TaskListState extends State<TaskList> {
                                   ],
                                 ),
                                 Container(
-                                  height: 10,
+                                  height: 13,
                                 ),
                                 Row(
                                   children: <Widget>[

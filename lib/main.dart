@@ -83,7 +83,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       // Optional drawer
       drawer: Drawer(
         child: DrawerHeader(
-          child: Text("Hello"),
+          child: Text(""),
         ),
       ),
 
@@ -98,7 +98,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             padding: EdgeInsets.only(right: 4),
             child: IconButton(
               icon: Icon(Icons.person),
-              // TODO: implement the going to my profile page
               onPressed: () => {},
             ),
           )
@@ -122,19 +121,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       children: [
                         FlatButton.icon(
                           padding: EdgeInsets.symmetric(vertical: 25),
-                          label: Text("Normal Task"),
+                          label: Container(
+                            width: MediaQuery.of(context).size.width / 3,
+                            child: Text("Normal Task"),
+                          ),
                           icon: Icon(
                             Icons.add_box,
                             size: 50,
+                            color: Colors.indigo[900],
                           ),
                           onPressed: () => _navigateToAddNormalTask(context),
                         ),
                         FlatButton.icon(
                           padding: EdgeInsets.symmetric(vertical: 25),
-                          label: Text("Emergency Task"),
+                          label: Container(
+                            width: MediaQuery.of(context).size.width /3,
+                            child: Text("Emergency Task"),
+                          ),
                           icon: Icon(
                             Icons.error,
                             size: 50,
+                            color: Colors.red[600],
                           ),
                           onPressed: () => _navigateToAddEmergencyTask(context),
                         ),

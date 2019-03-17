@@ -28,6 +28,8 @@ class _EmergencyTaskCardState extends State<EmergencyTaskCard> {
   Widget build(BuildContext context) {
     // Put style here
     return Card(
+      color: Colors.red[800],
+      elevation: 5,
       child: Container(
         height: 168,
         width: 200,
@@ -39,21 +41,22 @@ class _EmergencyTaskCardState extends State<EmergencyTaskCard> {
             children: <Widget>[
               Text(
                 widget.title,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.title.apply(color: Colors.white),
               ),
               Text(
                 widget.description,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.body1.apply(color: Colors.white),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     "0 / ${widget.numberOfPeople}",
-                    style: Theme.of(context).textTheme.headline,
+                    style: Theme.of(context).textTheme.headline.apply(color: Colors.white),
                   ),
                   RaisedButton(
-                    // TODO: change the on pressed behaviour
+                    color: Colors.grey[200],
+                    elevation: 3,
                     onPressed: () => {print("yo")},
                     child: Text('Accept'),
                   )
