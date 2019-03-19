@@ -14,9 +14,11 @@ EventIt has several interesting features
 
 EventIt is built in using the Flutter tech stack. 
 
-The Flutter SDK is required to run the app.
+The Flutter SDK and Firebase services is required to run the app.
 
-Connect your PC to your smartphone of choice or launch an emulator.
+First, add Firebase services to your project by following [this](https://firebase.google.com/docs/flutter/setup) guideline.
+
+Then, connect your PC to your smartphone of choice or launch an emulator.
 
 Then run:
 
